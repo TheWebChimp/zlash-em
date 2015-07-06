@@ -46,9 +46,11 @@ public class Swipes : MonoBehaviour
 					if (swipeValue > 0) { 
 						// Arriba
 						camera.backgroundColor = Color.red;
+						gameObject.GetComponent<Game>().HandleSwipe("up");
 					} else if (swipeValue < 0) { 
 						// Abajo
 						camera.backgroundColor = Color.blue;
+						gameObject.GetComponent<Game>().HandleSwipe("down");
 					}
 				}
 				if (swipeDistHorizontal > minSwipeDistX) {
@@ -56,9 +58,11 @@ public class Swipes : MonoBehaviour
 					if (swipeValue > 0) { 
 						// Derecha
 						camera.backgroundColor = Color.gray;
+						gameObject.GetComponent<Game>().HandleSwipe("right");
 					} else if (swipeValue < 0) { 
 						// Izquierda
 						camera.backgroundColor = Color.green;
+						gameObject.GetComponent<Game>().HandleSwipe("left");
 					}
 				}
 				break;
@@ -77,9 +81,11 @@ public class Swipes : MonoBehaviour
 					if (swipeValue > 0) { 
 						// Arriba
 						camera.backgroundColor = Color.red;
+						gameObject.GetComponent<Game>().HandleSwipe("up");
 					} else if (swipeValue < 0) { 
 						// Abajo
 						camera.backgroundColor = Color.blue;
+						gameObject.GetComponent<Game>().HandleSwipe("down");
 					}
 				}
 				if (swipeDistHorizontal > minSwipeDistX) {
@@ -87,9 +93,11 @@ public class Swipes : MonoBehaviour
 					if (swipeValue > 0) { 
 						// Derecha
 						camera.backgroundColor = Color.gray;
+						gameObject.GetComponent<Game>().HandleSwipe("right");
 					} else if (swipeValue < 0) { 
 						// Izquierda
 						camera.backgroundColor = Color.green;
+						gameObject.GetComponent<Game>().HandleSwipe("left");
 					}
 				}
 			}
