@@ -3,10 +3,12 @@ using System.Collections;
 
 public class EnemyStack : MonoBehaviour {
 
-	public Queue stack;
+	public Queue queue;
+	public Queue instances;
 
 	public EnemyStack() {
-		stack = new Queue();
+		queue = new Queue();
+		instances = new Queue();
 	}
 
 }

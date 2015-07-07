@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Enemy.cs" />
      <Compile Include="Assets\EnemyStack.cs" />
      <Compile Include="Assets\Game.cs" />
      <Compile Include="Assets\Swipes.cs" />
