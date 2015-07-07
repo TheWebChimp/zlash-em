@@ -24,6 +24,8 @@ public class Game : MonoBehaviour {
 		}
 		InitEnemies();
 		InvokeRepeating("Tick", 0.0f, fTickTime);
+		//
+		//gameObject.GetComponent<Camera>().aspect = (Screen.currentResolution.width / Screen.currentResolution.height);
 	}
 	
 	// Update is called once per frame
@@ -53,12 +55,10 @@ public class Game : MonoBehaviour {
 	void Tick() {
 		int[] nEnemies;
 		RandomizeEnemies();
-		// Now get the four enemies
-		nEnemies = AdvanceEnemies();
-		text.text = "Nutin'";
+		text.text = "";
 		for (int i = 0; i < 4; i++) {
 			object[] queue = arrEnemies[i].queue.ToArray();
-			if ( (int)queue[2] == 1 ) {
+			if ( (int)queue[3] == 1 ) {
 				Enemy enemy = new Enemy();
 				arrEnemies[i].instances.Enqueue(enemy);
 				enemy.Spawn(i);
@@ -69,10 +69,20 @@ public class Game : MonoBehaviour {
 				Enemy enemy = (Enemy)instances[j];
 				enemy.Move();
 			}
+		}
+		// Now get the four enemies
+		nEnemies = AdvanceEnemies();
+		for (int i = 0; i < 4; i++) {
 			//
 			if (nEnemies[i] == 1 && i == nEnemySwipe) {
 				// Correct swipe! Killed the enemy
 				text.text = ":) Enemy killed";
+			}
+			//
+			if (nEnemies[i] == 1) {
+				// Enemy poped up
+				Enemy enemy = (Enemy) arrEnemies[i].instances.Dequeue();
+				enemy.Kill();
 			}
 		}
 		nEnemySwipe = -1;
