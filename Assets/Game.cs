@@ -10,12 +10,14 @@ public class Game : MonoBehaviour {
 	int nPlayerKills;
 	int nComboCounter;
 	int nEnemySwipe;
+	bool bIsDeath;
 	float fTickTime;
 	public Text text;
 	//int nEffect <-- Array
 	
 	// Use this for initialization
 	void Start() {
+		bIsDeath = false;
 		fTickTime = 1.0f;
 		nEnemySwipe  = -1;
 		arrEnemies = new EnemyStack[4];
@@ -23,9 +25,9 @@ public class Game : MonoBehaviour {
 			arrEnemies[i] = new EnemyStack();
 		}
 		InitEnemies();
-		InvokeRepeating("Tick", 0.0f, fTickTime);
-		//
-		//gameObject.GetComponent<Camera>().aspect = (Screen.currentResolution.width / Screen.currentResolution.height);
+		Tick();
+		// Create player sprite
+		Instantiate(Resources.Load("Prefabs/Player"));
 	}
 	
 	// Update is called once per frame
@@ -77,6 +79,10 @@ public class Game : MonoBehaviour {
 			if (nEnemies[i] == 1 && i == nEnemySwipe) {
 				// Correct swipe! Killed the enemy
 				text.text = ":) Enemy killed";
+				fTickTime -= fTickTime > 0.25f ? 0.05f : 0;
+			} else if (nEnemies[i] == 1 && i != nEnemySwipe) {
+				text.text = "You die!!";
+				bIsDeath = true;
 			}
 			//
 			if (nEnemies[i] == 1) {
@@ -92,7 +98,10 @@ public class Game : MonoBehaviour {
 			object[] queue = arrEnemies[i].queue.ToArray();
 			Debug.Log( ((int)queue[0]).ToString() + " " + ((int)queue[1]).ToString() + " " + ((int)queue[2]).ToString() );
 		}
-		
+		// 10/10 would invoke again
+		if (! bIsDeath ) {
+			Invoke("Tick", fTickTime);
+		}
 	}
 	
 	void InitEnemies() {
@@ -116,7 +125,6 @@ public class Game : MonoBehaviour {
 		// Add a new enemy in ONE of the queues
 		for (int i = 0; i < 4; i++) {
 			arrEnemies[i].queue.Enqueue(i == nAddTo ? 1 : 0);
-			Debug.Log("bla");
 		}
 	}
 }
